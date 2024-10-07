@@ -1,7 +1,7 @@
-<%-- c: 자주 사용하는 Java 코드 --%>
+<%-- c : 자주 사용하는 Java 코드 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%-- fn: 컬렉션 / 문자열 관련 기능 --%>
+<%-- fn : 컬렉션/문자열 관련 기능 --%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,16 +13,11 @@
 <title>JSTL 확인하기</title>
 </head>
 <body>
-
-
-
-
-
-	<h3>1. 변수 선언 ( == 속성 추가 )</h3>
+	<h3>1. 변수 선언(== 속성 추가) - c:set 태그</h3>
 
 	<pre>
 		- 원하는 scope 객체에 값을 세팅할 수 있는 태그
-		== 객체.setAttribute("key", value)
+		== 객체.setAttribute("key", value);
 		
 		[속성]
 		
@@ -31,39 +26,39 @@
 		2) value : 대입할 값(== value)
 		
 		3) scope : 범위 지정(page, request, session, application)
-			-> 기본값은 page
+			-> 기본 값은 page
 	</pre>
-
-	<%-- 끝줄에 /를 입력하면 뒤에 닫는태그 대용으로 사용가능 --%>
 
 	<c:set var="num1" value="10" scope="page" />
 	<c:set var="num2" value="20" scope="request" />
 	<c:set var="num3" value="30" scope="session" />
 	<c:set var="num4" value="40" scope="application" />
 
-	<h5>page - num1 : ${pageScope.num1 }</h5>
-	<h5>request - num2 : ${requestScope.num2 }</h5>
-	<h5>session - num3 : ${sessionScope.num3 }</h5>
-	<h5>application - num4 : ${applicationScope.num4 }</h5>
+	<h5>page - num1 : ${pageScope.num1}</h5>
+	<h5>request - num2 : ${requestScope.num2}</h5>
+	<h5>session - num3 : ${sessionScope.num3}</h5>
+	<h5>application - num4 : ${applicationScope.num4}</h5>
 
 	<hr>
 
-	<h3>2. 변수 제거 ( == 속성 제거 ) - c:remove 태그</h3>
+	<h3>2. 변수 제거(== 속성 제거) - c:remove 태그</h3>
 
 	<pre>
 		- scope 객체에 세팅된 속성을 제거하는 태그
 		(== 객체.removeAttribute("key"))
 		
 		[속성]
-		1) var : 변수명 ( == key)
-		2) scope :범위지정 ( page , request, session, application)
-		 -> 기본 값 : 전 범위 일괄 제거 
-		
+		1) var : 변수명 (== key)
+	
+		2) scope : 범위 지정(page, request, session, application)
+			-> 기본 값 : 전 범위 일괄 제거
 	</pre>
+
 	<c:set var="test2" scope="page" value="페이지" />
 	<c:set var="test2" scope="request" value="리퀘스트" />
 	<c:set var="test2" scope="session" value="세션" />
 	<c:set var="test2" scope="application" value="어플리케이션" />
+
 	<table>
 		<tr>
 			<td>
@@ -102,28 +97,35 @@
 		</tr>
 	</table>
 
+	<hr>
+
 	<h3>3. 단일 조건문 - c:if</h3>
 
 	<pre>
-    - Java의 if문을 태그 형대로 만든 것
-  
-    * 주의사항 : else 구문이 없다!
-
-    [속성]
-    1) test : 조건식을 작성하는 속성
-
-    - 작성법 1 : 대입되는 값은 무조건 EL 구문으로 작성!
-    - 작성법 2 : 작성된 조건식의 결과는 무조건 T/F    
-   </pre>
+	    - Java의 if문을 태그 형태로 만든 것
+	  
+	    * 주의사항 : else 구문이 없다!
+	
+	    [속성]
+	    1) test : 조건식을 작성하는 속성
+	
+	    - 작성법 1 : 대입되는 값은 무조건 EL 구문으로 작성!
+	    - 작성법 2 : 작성된 조건식의 결과는 무조건 T/F    
+  	</pre>
 
 	<c:set var="test3" value="양념 닭갈비" />
 
-	<c:if test="${test3 == '숯불 닭갈비'}">
+	<c:if test='${test3 == "숯불 닭갈비"}'>
 		<h4>${test3}맛있겠다</h4>
 	</c:if>
 
-	<c:if test="${test3 != '숯불 닭갈비'}">
-		<h4>숯불닭갈비 먹고싶다.</h4>
+
+	<c:if test='${test3 != "숯불 닭갈비"}'>
+		<h4>숯불 닭갈비 먹고싶다..</h4>
+	</c:if>
+
+	<c:if test="${100 == 100}">
+		100 입니다
 	</c:if>
 
 	<hr>
@@ -149,31 +151,37 @@
       - else를 나타내는 태그
         -> 아무 속성도 없음!
   </pre>
-	<%--
-		empty 연산자
-		
-		- EL에서 사용하는 연산자
-		
-		1) null인 경우 true
-		
-		2) 연산 대상이 배열/ 컬렉션인데 내부에 아무 요소도 없는경우 true	
-		
-		<c:when test="${param.age ==null}"
-	 --%>
+
 	<c:choose>
+		<%-- 
+			empty 연산자
+			
+			- EL에서 사용하는 연산자
+			
+			1 ) null 인 경우 true
+			2 ) 연산 대상이 배열/컬렉션인데
+			   내부에 아무 요소도 없는 경우 true
+			   
+			나머지는 false
+			
+			<c:when test="${param.age == null}">
+		 --%>
 		<c:when test="${empty param.age}">
 			<h4 style="color: red">age 값이 없습니다</h4>
 		</c:when>
 
-		<c:when test="${param.age <= 13 }">
+		<c:when test="${param.age <= 13}">
 			<h4>어린이 입니다.</h4>
 		</c:when>
-		<c:when test="${param.age <= 19 }">
+
+		<c:when test="${param.age <= 19}">
 			<h4>청소년 입니다.</h4>
 		</c:when>
+
 		<c:otherwise>
-			<h4>성인입니다.</h4>
+			<h4>성인 입니다.</h4>
 		</c:otherwise>
+
 	</c:choose>
 
 	<hr>
@@ -208,31 +216,32 @@
   </pre>
 
 	<h3>5-1) 일반 for문 처럼 사용하기</h3>
-
+	
 	<p>1~6까지 1씩 증가하는 for문</p>
-
+	
 	<c:forEach var="i" begin="1" end="6" step="1">
-		<h ${i}> h${i} 태그 입니다. /h${i}> 
+		<h${i}> h${i} 태그 입니다 </h${i}>
 	</c:forEach>
-
+	
 	<hr>
-	<%-- step 속성 값은 양수만 가능합니다~!!! --%>
-	<p>6 ~ 1 까지 1씩 감소하는 for문</p>
-
+	
+	<p>6~1까지 1씩 감소하는 for문</p>
+	<%-- step 속성 값은 양수만 가능! --%>
+	
 	<c:forEach var="i" begin="1" end="6" step="1">
-		<h ${7-i}>${7-i} 태그 입니다.</h${7-i}>
+		<h${7-i}> h${7-i} 태그 입니다 </h${7-i}>
 	</c:forEach>
-
+	
+	
 	<hr>
-
+	
 	<h3>5-2) 일반 for문 + 컬렉션 List 사용하기</h3>
-
-	<hr>
-	<hr>
-
+	
 	<ul>
-		<li>nameList : ${nameList }</li>
-
+		<li>
+			nameList : ${nameList}
+		</li>
+		
 		<li>
 			<%-- 
 				접두사 fn이 추가된 EL 구문 사용해보기
@@ -241,50 +250,69 @@
 				
 				${fn:length(컬렉션|배열|문자열)}
 				 -> 컬렉션|배열|문자열의 길이를 반환
-			 --%> nameList의 길이(저장된 데이터 개수) : ${fn:length(nameList)}
+			--%>
+			nameList의 길이(저장된 데이터 개수) : ${fn:length(nameList)}
 		</li>
-
+		
 		<%-- c:forEach 태그를 이용해 이름 하나씩 출력 --%>
-
-		<c:forEach var="i" begin="0" end="${fn:length(nameList) - 1}" step="1">
-			<li>${i+1 } ) ${nameList[i]}</li>
+		<c:forEach var="i" begin="0" 
+			end="${fn:length(nameList) - 1}" step="1">
+		
+			<li> ${i+1} ) ${nameList[i]} </li>
 		</c:forEach>
-
+		
 	</ul>
-
+	
+	
 	<hr>
-
-	<h3>5-3) 향상된 for문 + List 사용하기</h3>
-
-	<%-- 
-	반복 접근중인 객체의 요소 확인 방법
-	1) ${컬렉션|배열[index]}
-	2) varStatus.current
-	3) forEach에 var 속성에 작성한 변수명 세팅 후 ${변수명} 
-	--%>
+	
+	
+	<h3>5-3 ) 향상된 for문 + List 사용하기</h3>
 	
 	<ul>
 		<c:forEach var="name" items="${nameList}" varStatus="vs">
 		
-			<c:if test="${vs.first }"> <%-- 반복문의 첫 번째 순회일 때 true --%>
-				<li>-------------------------시작-----------------</li>
+			<c:if test="${vs.first}"> <%-- 반복문의 첫 번째 순회일 때 true --%>
+				<li>--------------시작--------------</li>
 			</c:if>
+			
 			<li style="margin-bottom: 10px;">
 				<ul>
 					<li>현재 인덱스 : ${vs.index}</li>
 					<li>현재 반복 횟수 : ${vs.count}</li>
-					<li>현재 요소 확인하기 : ${nameList[vs.index] }</li>
-					<li>현재 요소 : ${vs.current}</li>
 					
+					<%-- 
+						반복 접근중인 객체의 요소 확인 방법
+						1) ${컬렉션|배열[index]}
+						2) ${varStatus.current} 
+						3) forEach에 var 속성에 작성한 변수명 세팅 후 ${변수명}
+					 --%>
+					<li>현재 요소 : ${nameList[vs.index]}</li>
+					<li>현재 요소 : ${vs.current}</li>
+					<li>현재 요소 : ${name}</li>
 				</ul>
 			</li>
-			<c:if test="${vs.last }"> <%-- 반복문의 첫 번째 순회일 때 true --%>
-				<li>------------------------종료-----------------</li>
+		
+			<c:if test="${vs.last}"> <%-- 반복문의 마지막 순회일 때 true --%>
+				<li>--------------종료--------------</li>
 			</c:if>
+			
 		</c:forEach>
 	</ul>
 	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

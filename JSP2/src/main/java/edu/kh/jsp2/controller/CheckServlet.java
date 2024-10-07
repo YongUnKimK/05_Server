@@ -10,15 +10,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/el/check")
-public class CheckServlet extends HttpServlet {
+public class CheckServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/el/check.jsp");
+		
+		RequestDispatcher dispatcher 
+			= req.getRequestDispatcher("/WEB-INF/views/el/check.jsp");
 		
 		dispatcher.forward(req, resp);
-		
 	}
-	
-	
 }
+
+
+
+
+
+
+
+
+
